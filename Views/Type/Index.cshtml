@@ -1,0 +1,29 @@
+﻿@model List<DiarsT2.Models.Type>
+
+<h1>Pokemones</h1>
+
+<div class="row">
+    <div class="col-4">
+    </div>
+    <div class="col-8">
+        <a style="margin-bottom:20px;margin-left:550px;margin-top:-40px;" href="/Type/Register" class="btn btn-outline-primary">Registra un tipo</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tipo in Model)
+        {
+            <tr>
+                <td>@tipo.Id </td>
+                <td>@tipo.Name </td>
+            </tr>
+         }
+    </tbody>
+</table>

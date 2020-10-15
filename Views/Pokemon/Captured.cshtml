@@ -1,0 +1,41 @@
+﻿@model List<DiarsT2.Models.UserPokemon>
+
+<h1>Pokemones capturados</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Fecha</th>
+            <th>Imagen</th>
+            @if (ViewBag.UserId != null)
+            {
+                <th></th>            
+             }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pokemon in Model)
+        {
+            <tr>
+                <td>@pokemon.Pokemon.Id</td>
+                <td>@pokemon.Pokemon.Name </td>
+                <td>@pokemon.Pokemon.Type.Name  </td>
+                <td>@string.Format("{0:dd MMM yyyy hh:mm tt}", pokemon.Date) </td>
+                <td> <img src="@pokemon.Pokemon.ImagePath" height="50" width="50" /></td>
+                @if (ViewBag.UserId != null)
+                {
+                    <th>
+                        <form action="/Pokemon/Free" method="post">
+                            <input type="hidden" name="PokemonId" value="@pokemon.Pokemon.Id" />
+                            <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                            <button type="submit" class="btn btn-danger">Liberar</button>
+                        </form>
+                    </th>
+                 }
+            </tr>
+            }
+    </tbody>
+</table>

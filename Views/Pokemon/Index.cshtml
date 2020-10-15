@@ -1,0 +1,62 @@
+﻿@model List<DiarsT2.Models.Pokemon>
+
+<h1>Pokemones</h1>
+
+<div class="row">
+    <div class="col-4">
+        <!-- FORMULARIO DE BUSQUEDA -->
+        <form action="/Pokemon" method="get">
+            <div class="form-row">
+                <div class="form-group col-auto">
+                    <input type="text" name="name" value="@ViewBag.Busqueda" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-info">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-8">
+        <a style="margin-right:40px;" href="/Pokemon/Register" class="btn btn-outline-primary">Registra un Pokemon</a>
+        <a href="/Type" class="btn btn-outline-primary">Tipos de Pokemones</a>
+        <a style="margin-left:80px; margin-top:-120px;" href="/Auth/Login" class="btn btn-success">Inicia Sesión</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Imagen</th>
+            @if (ViewBag.UserId != null)
+            {
+                <th></th>
+             }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pokemon in Model)
+        {
+            <tr>
+                <td>@pokemon.Id </td>
+                <td>@pokemon.Name </td>
+                <td>@pokemon.Type.Name </td>
+                <td>
+                    <img src="@pokemon.ImagePath" height="50" width="50" />
+                </td>
+                @if (ViewBag.UserId != null)
+                {
+                    <th>
+                        <form action="/Pokemon/Capture" method="post">
+                            <input type="hidden" name="PokemonId" value="@pokemon.Id" />
+                            <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+                            <button type="submit" class="btn btn-outline-success">Capturar</button>
+                        </form>
+                    </th>
+            }
+            </tr>
+        }
+    </tbody>
+</table>
